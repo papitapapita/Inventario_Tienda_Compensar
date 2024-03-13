@@ -4,6 +4,9 @@
  */
 package com.mycompany.inventario_tienda_compensar;
 
+import java.awt.*;
+import java.net.URL;
+
 /**
  *
  * @author manyd
@@ -15,6 +18,19 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
+    }
+
+    public Image getIconImage() {
+        Image value = null;
+        URL imageUrl = ClassLoader.getSystemResource("images/logo-ucompensar-2022.jpg");
+        if (imageUrl != null) {
+            value = Toolkit.getDefaultToolkit().getImage(imageUrl);
+        } else {
+            // Manejar el caso en que la imagen no se pueda cargar
+            // Por ejemplo, cargar una imagen predeterminada
+            // value = Toolkit.getDefaultToolkit().getImage("ruta/a/imagen/predeterminada.jpg");
+        }
+        return value;
     }
 
     /**
@@ -32,14 +48,15 @@ public class Interfaz extends javax.swing.JFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         jMenuItem2 = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
+        registerProductsBtn = new javax.swing.JMenuItem();
+        registerEmployeesBtn = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         jMenuItem5 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setIconImage(getIconImage());
 
         javax.swing.GroupLayout desktopPaneLayout = new javax.swing.GroupLayout(desktopPane);
         desktopPane.setLayout(desktopPaneLayout);
@@ -64,16 +81,21 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenu3.setText("Registro");
 
-        jMenuItem3.setText("Registro Productos");
-        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+        registerProductsBtn.setText("Registro Productos");
+        registerProductsBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem3ActionPerformed(evt);
+                registerProductsBtnActionPerformed(evt);
             }
         });
-        jMenu3.add(jMenuItem3);
+        jMenu3.add(registerProductsBtn);
 
-        jMenuItem4.setText("Registro Empleados");
-        jMenu3.add(jMenuItem4);
+        registerEmployeesBtn.setText("Registro Empleados");
+        registerEmployeesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                registerEmployeesBtnActionPerformed(evt);
+            }
+        });
+        jMenu3.add(registerEmployeesBtn);
 
         jMenuBar1.add(jMenu3);
 
@@ -108,11 +130,17 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+    private void registerProductsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerProductsBtnActionPerformed
         ProductsInterface productsInterface = new ProductsInterface();
         desktopPane.add(productsInterface);
         productsInterface.show();
-    }//GEN-LAST:event_jMenuItem3ActionPerformed
+    }//GEN-LAST:event_registerProductsBtnActionPerformed
+
+    private void registerEmployeesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerEmployeesBtnActionPerformed
+        EmployeesInterface employeesInterface = new EmployeesInterface();
+        desktopPane.add(employeesInterface);
+        employeesInterface.show();
+    }//GEN-LAST:event_registerEmployeesBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,9 +186,9 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
-    private javax.swing.JMenuItem jMenuItem4;
     private javax.swing.JMenuItem jMenuItem5;
     private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem registerEmployeesBtn;
+    private javax.swing.JMenuItem registerProductsBtn;
     // End of variables declaration//GEN-END:variables
 }

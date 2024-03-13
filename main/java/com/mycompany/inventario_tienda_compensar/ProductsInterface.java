@@ -46,6 +46,7 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setResizable(true);
         setTitle("Registro Producto");
+        setFrameIcon(null);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
