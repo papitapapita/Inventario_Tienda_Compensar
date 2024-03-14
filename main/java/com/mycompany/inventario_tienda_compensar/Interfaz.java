@@ -45,15 +45,15 @@ public class Interfaz extends javax.swing.JFrame {
         desktopPane = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        saveProjectBtn = new javax.swing.JMenuItem();
+        createProjectBtn = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         registerProductsBtn = new javax.swing.JMenuItem();
         registerEmployeesBtn = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        aboutUsBtn = new javax.swing.JMenuItem();
+        ucompensarBtn = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImage(getIconImage());
@@ -71,11 +71,21 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        jMenuItem1.setText("Guardar Proyecto");
-        jMenu1.add(jMenuItem1);
+        saveProjectBtn.setText("Guardar Proyecto");
+        saveProjectBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveProjectBtnActionPerformed(evt);
+            }
+        });
+        jMenu1.add(saveProjectBtn);
 
-        jMenuItem2.setText("Crear Proyecto");
-        jMenu1.add(jMenuItem2);
+        createProjectBtn.setText("Crear Proyecto");
+        createProjectBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                createProjectBtnActionPerformed(evt);
+            }
+        });
+        jMenu1.add(createProjectBtn);
 
         jMenuBar1.add(jMenu1);
 
@@ -103,12 +113,22 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenu4.setText("Sobre Nosotros");
 
-        jMenuItem5.setText("Sobre Nosotros");
-        jMenu4.add(jMenuItem5);
+        aboutUsBtn.setText("Sobre Nosotros");
+        aboutUsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                aboutUsBtnActionPerformed(evt);
+            }
+        });
+        jMenu4.add(aboutUsBtn);
 
-        jMenuItem6.setText("UCompensar");
-        jMenuItem6.setToolTipText("");
-        jMenu4.add(jMenuItem6);
+        ucompensarBtn.setText("UCompensar");
+        ucompensarBtn.setToolTipText("");
+        ucompensarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ucompensarBtnActionPerformed(evt);
+            }
+        });
+        jMenu4.add(ucompensarBtn);
 
         jMenu2.add(jMenu4);
 
@@ -141,6 +161,22 @@ public class Interfaz extends javax.swing.JFrame {
         desktopPane.add(employeesInterface);
         employeesInterface.show();
     }//GEN-LAST:event_registerEmployeesBtnActionPerformed
+
+    private void saveProjectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveProjectBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_saveProjectBtnActionPerformed
+
+    private void createProjectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createProjectBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_createProjectBtnActionPerformed
+
+    private void aboutUsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_aboutUsBtnActionPerformed
+
+    private void ucompensarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ucompensarBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ucompensarBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,17 +214,17 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem aboutUsBtn;
+    private javax.swing.JMenuItem createProjectBtn;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JMenuItem registerEmployeesBtn;
     private javax.swing.JMenuItem registerProductsBtn;
+    private javax.swing.JMenuItem saveProjectBtn;
+    private javax.swing.JMenuItem ucompensarBtn;
     // End of variables declaration//GEN-END:variables
 }

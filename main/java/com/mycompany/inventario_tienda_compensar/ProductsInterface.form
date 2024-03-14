@@ -49,23 +49,6 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="productNameInput" max="32767" attributes="0"/>
-                      <Component id="productTypeInput" max="32767" attributes="0"/>
-                      <Component id="totalUnitsInput" max="32767" attributes="0"/>
-                      <Component id="unitaryValueInput" alignment="0" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="257" max="-2" attributes="0"/>
-              </Group>
-              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace pref="25" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
@@ -82,10 +65,31 @@
                       </Group>
                   </Group>
               </Group>
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="341" max="-2" attributes="0"/>
-                  <Component id="addProductBtn" min="-2" max="-2" attributes="0"/>
+              <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Component id="addProductBtn" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="saveModificationBtn" min="-2" pref="126" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel1" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="productNameInput" max="32767" attributes="0"/>
+                              <Component id="productTypeInput" max="32767" attributes="0"/>
+                              <Component id="totalUnitsInput" max="32767" attributes="0"/>
+                              <Component id="unitaryValueInput" alignment="0" max="32767" attributes="0"/>
+                          </Group>
+                      </Group>
+                  </Group>
+                  <EmptySpace min="-2" pref="257" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -112,9 +116,12 @@
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <Component id="unitaryValueInput" alignment="0" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="addProductBtn" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="51" max="32767" attributes="0"/>
+                  <EmptySpace pref="31" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="addProductBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="saveModificationBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="jScrollPane1" min="-2" pref="326" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -141,10 +148,10 @@
                   <Table columnCount="6" rowCount="0">
                     <Column editable="true" title="Nombre" type="java.lang.String"/>
                     <Column editable="true" title="Tipo" type="java.lang.String"/>
-                    <Column editable="true" title="Unidades" type="java.lang.Integer"/>
-                    <Column editable="true" title="Valor Uni." type="java.lang.Double"/>
-                    <Column editable="true" title="IVA" type="java.lang.Double"/>
-                    <Column editable="true" title="Valor Total" type="java.lang.Double"/>
+                    <Column editable="true" title="Unidades" type="java.lang.String"/>
+                    <Column editable="true" title="Valor Uni." type="java.lang.String"/>
+                    <Column editable="true" title="IVA" type="java.lang.String"/>
+                    <Column editable="true" title="Valor Total" type="java.lang.String"/>
                   </Table>
                 </Property>
               </Properties>
@@ -214,21 +221,42 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Agregar Producto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addProductBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="editProductBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Editar Producto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editProductBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="deleteProductBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Borrar Producto"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteProductBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="graphicBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Graficar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="graphicBtnActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="saveModificationBtn">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Guardar Edici&#xf3;n"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="saveModificationBtnActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

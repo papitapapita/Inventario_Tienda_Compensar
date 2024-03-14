@@ -94,10 +94,25 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
         });
 
         editEmployeeBtn.setText("Editar Empleado");
+        editEmployeeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editEmployeeBtnActionPerformed(evt);
+            }
+        });
 
         deleteEmployeeBtn.setText("Borrar Empleado");
+        deleteEmployeeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteEmployeeBtnActionPerformed(evt);
+            }
+        });
 
         graphicBtn.setText("Graficar");
+        graphicBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphicBtnActionPerformed(evt);
+            }
+        });
 
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Jornada de Trabajo");
@@ -212,6 +227,18 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
     private void addEmployeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeBtnActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_addEmployeeBtnActionPerformed
+
+    private void editEmployeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editEmployeeBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_editEmployeeBtnActionPerformed
+
+    private void deleteEmployeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEmployeeBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_deleteEmployeeBtnActionPerformed
+
+    private void graphicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_graphicBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

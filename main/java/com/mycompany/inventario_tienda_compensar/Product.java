@@ -11,6 +11,10 @@ public class Product {
     private double iva;
     private double totalValue;
 
+    public Product(){
+        System.out.println("A product has been created");
+    }
+
     public Product(String name, String type, int totalUnits, double unitaryValue) {
         this.name = name;
         this.type = type;
@@ -68,17 +72,17 @@ public class Product {
         this.totalValue = totalValue;
     }
 
-    private double calculateIva(){
+    protected double calculateIva(){
         final Map<String, Double> IVA_VALUES = new HashMap<>();
         IVA_VALUES.put("Aseo", .19);
         IVA_VALUES.put("Papelería", .09);
         IVA_VALUES.put("Víveres", .15);
-        IVA_VALUES.put("Mascotas", .16);
+        IVA_VALUES.put("Productos para Mascotas", .16);
         IVA_VALUES.put("Otros", .1);
         return IVA_VALUES.get(type);
     }
 
-    private double calculateTotalValue(){
+    protected double calculateTotalValue(){
         return unitaryValue * totalUnits;
     }
 

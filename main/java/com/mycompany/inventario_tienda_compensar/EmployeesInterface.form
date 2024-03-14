@@ -239,16 +239,25 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Editar Empleado"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="editEmployeeBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="deleteEmployeeBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Borrar Empleado"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteEmployeeBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="graphicBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Graficar"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="graphicBtnActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>

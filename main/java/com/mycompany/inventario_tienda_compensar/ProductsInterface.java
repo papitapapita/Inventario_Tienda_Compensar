@@ -4,6 +4,12 @@
  */
 package com.mycompany.inventario_tienda_compensar;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 /**
  *
  * @author manyd
@@ -13,6 +19,8 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
     /**
      * Creates new form productsInterface
      */
+    ArrayList<Product> products = new ArrayList<>();
+
     public ProductsInterface() {
         initComponents();
     }
@@ -41,6 +49,7 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
         editProductBtn = new javax.swing.JButton();
         deleteProductBtn = new javax.swing.JButton();
         graphicBtn = new javax.swing.JButton();
+        saveModificationBtn = new javax.swing.JButton();
 
         setClosable(true);
         setIconifiable(true);
@@ -59,7 +68,7 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -85,31 +94,45 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
         totalUnitsInput.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         addProductBtn.setText("Agregar Producto");
+        addProductBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addProductBtnActionPerformed(evt);
+            }
+        });
 
         editProductBtn.setText("Editar Producto");
+        editProductBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editProductBtnActionPerformed(evt);
+            }
+        });
 
         deleteProductBtn.setText("Borrar Producto");
+        deleteProductBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteProductBtnActionPerformed(evt);
+            }
+        });
 
         graphicBtn.setText("Graficar");
+        graphicBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphicBtnActionPerformed(evt);
+            }
+        });
+
+        saveModificationBtn.setText("Guardar Edición");
+        saveModificationBtn.setEnabled(false);
+        saveModificationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveModificationBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addGap(27, 27, 27)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(productNameInput)
-                    .addComponent(productTypeInput, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(totalUnitsInput)
-                    .addComponent(unitaryValueInput))
-                .addGap(257, 257, 257))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(25, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,10 +146,26 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
                         .addGap(18, 18, 18)
                         .addComponent(graphicBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(341, 341, 341)
-                .addComponent(addProductBtn)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(addProductBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(saveModificationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(productNameInput)
+                            .addComponent(productTypeInput, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(totalUnitsInput)
+                            .addComponent(unitaryValueInput))))
+                .addGap(257, 257, 257))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,9 +186,11 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(unitaryValueInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(addProductBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addProductBtn)
+                    .addComponent(saveModificationBtn))
+                .addGap(38, 38, 38)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -173,6 +214,110 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
+        addProduct();
+    }//GEN-LAST:event_addProductBtnActionPerformed
+
+    int selectedModificationRow = 0;
+    private void editProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductBtnActionPerformed
+        selectedModificationRow = editProduct();
+    }//GEN-LAST:event_editProductBtnActionPerformed
+
+    private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
+        deleteProduct();
+    }//GEN-LAST:event_deleteProductBtnActionPerformed
+
+    private void graphicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_graphicBtnActionPerformed
+
+    private void saveModificationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveModificationBtnActionPerformed
+        saveModification();
+    }//GEN-LAST:event_saveModificationBtnActionPerformed
+
+    private void addProduct(){
+        try{
+            DefaultTableModel productsModelTable = (DefaultTableModel) productsTable.getModel();
+            String name = productNameInput.getText();
+            String type = productTypeInput.getSelectedItem().toString();
+            int totalUnits = Integer.parseInt(totalUnitsInput.getValue().toString());
+            double unitaryValue = Double.parseDouble(unitaryValueInput.getText());
+            Product product = new Product(name, type, totalUnits, unitaryValue);
+            Boolean exists = false;
+            for(Product p : products){
+                if(p.getName() == product.getName()){
+                    exists = true;
+                    break;
+                }
+            }
+            if(!exists){
+                products.add(product);
+                DecimalFormat decimalFormat = new DecimalFormat();
+                Object[] rowData = {product.getName(), product.getType(), decimalFormat.format(product.getTotalUnits()), decimalFormat.format(product.getUnitaryValue()), String.format("%.2f%%", product.getIva()*100), decimalFormat.format(product.getTotalValue())};
+                productsModelTable.addRow(rowData);
+            }
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(rootPane, "Ingresaste un valor erróneo");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private int editProduct(){
+        try{
+            int selectedRow = productsTable.getSelectedRow();
+            if(selectedRow > -1){
+                Product tempProduct = products.get(selectedRow);
+                productNameInput.setText(tempProduct.getName());
+                productTypeInput.setSelectedItem(tempProduct.getType());
+                totalUnitsInput.setValue(tempProduct.getTotalUnits());
+                unitaryValueInput.setText(String.valueOf(tempProduct.getUnitaryValue()));
+                saveModificationBtn.setEnabled(true);
+                addProductBtn.setEnabled(false);
+                return selectedRow;
+            }
+            return -1;
+        }catch(Exception e){
+            return -1;
+        }
+
+    }
+
+    private void deleteProduct(){
+        try{
+            int selectedRow = productsTable.getSelectedRow();
+            if(selectedRow > -1){
+                products.remove(selectedRow);
+                DefaultTableModel productsModelTable = (DefaultTableModel) productsTable.getModel();
+                productsModelTable.removeRow(selectedRow);
+            }
+        }catch(Exception e){
+
+        }
+    }
+
+    private void saveModification(){
+        Product tempProduct = products.get(selectedModificationRow);
+        tempProduct.setName(productNameInput.getText());
+        tempProduct.setType(productTypeInput.getSelectedItem().toString());
+        tempProduct.setTotalUnits(Integer.parseInt(totalUnitsInput.getValue().toString()));
+        tempProduct.setUnitaryValue(Double.parseDouble(unitaryValueInput.getText()));
+        tempProduct.calculateIva();
+        tempProduct.calculateTotalValue();
+        DecimalFormat decimalFormat = new DecimalFormat();
+        DefaultTableModel productsTableModel = (DefaultTableModel) productsTable.getModel();
+        productsTableModel.setValueAt(tempProduct.getName(), selectedModificationRow, 0);
+        productsTableModel.setValueAt(tempProduct.getType(), selectedModificationRow, 1);
+        productsTableModel.setValueAt(decimalFormat.format(tempProduct.getTotalUnits()), selectedModificationRow, 2);
+        productsTableModel.setValueAt(decimalFormat.format(tempProduct.getUnitaryValue()), selectedModificationRow, 3);
+        productsTableModel.setValueAt(String.format("%.2f%%", tempProduct.getIva()*100), selectedModificationRow, 4);
+        productsTableModel.setValueAt(decimalFormat.format(tempProduct.getTotalValue()), selectedModificationRow, 5);
+        saveModificationBtn.setEnabled(false);
+        addProductBtn.setEnabled(true);
+        productNameInput.setText("");
+        totalUnitsInput.setValue(0);
+        unitaryValueInput.setText(String.valueOf(0));
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addProductBtn;
@@ -188,6 +333,7 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
     private javax.swing.JTextField productNameInput;
     private javax.swing.JComboBox<String> productTypeInput;
     private javax.swing.JTable productsTable;
+    private javax.swing.JButton saveModificationBtn;
     private javax.swing.JSpinner totalUnitsInput;
     private javax.swing.JTextField unitaryValueInput;
     // End of variables declaration//GEN-END:variables
