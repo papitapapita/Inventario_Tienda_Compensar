@@ -16,11 +16,11 @@ import java.util.ArrayList;
  */
 public class ProductsInterface extends javax.swing.JInternalFrame {
 
+    // Los productos que se van agregando gradualmente
+    ArrayList<Product> products = new ArrayList<>();
     /**
      * Creates new form productsInterface
      */
-    ArrayList<Product> products = new ArrayList<>();
-
     public ProductsInterface() {
         initComponents();
     }
@@ -203,6 +203,13 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Maneja el evento de clic en el botón para agregar un producto.
+     * Realiza las siguientes acciones:
+     * 1. Agrega un nuevo producto.
+     * 2. Limpia los campos de entrada.
+     * @param evt El evento de acción que desencadenó este método.
+     */
     private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
         addProduct();
         clearFields();
@@ -221,30 +228,51 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
         saveModification();
     }//GEN-LAST:event_saveModificationBtnActionPerformed
 
+    /**
+     * Agrega un nuevo producto a la lista de productos y actualiza la tabla de productos.
+     */
     private void addProduct(){
         try{
+            // Obtener el modelo de tabla de productos
             DefaultTableModel productsModelTable = (DefaultTableModel) productsTable.getModel();
+
+            // Obtener los datos del nuevo producto de los campos de entrada
             String name = productNameInput.getText();
             String type = productTypeInput.getSelectedItem().toString();
             int totalUnits = Integer.parseInt(totalUnitsInput.getValue().toString());
             double unitaryValue = Double.parseDouble(unitaryValueInput.getText());
+
+            // Validar si los campos están vacíos o si los valores son menores o iguales a cero
+            if(name.isEmpty()){
+                throw new IllegalArgumentException("El nombre del producto es obligatorio");
+            }
+            if (totalUnits <= 0 || unitaryValue <= 0) {
+                throw new IllegalArgumentException("Las unidades y el valor unitario deben ser mayores a cero");
+            }
+
+            // Crear una instancia del producto con los datos proporcionados
             Product product = new Product(name, type, totalUnits, unitaryValue);
-            Boolean exists = false;
-            for(Product p : products){
-                if(p.getName() == product.getName()){
-                    exists = true;
-                    break;
-                }
-            }
-            if(!exists){
-                products.add(product);
-                DecimalFormat decimalFormat = new DecimalFormat();
-                Object[] rowData = {product.getName(), product.getType(), decimalFormat.format(product.getTotalUnits()), decimalFormat.format(product.getUnitaryValue()), String.format("%.2f%%", product.getIva()*100), decimalFormat.format(product.getTotalValue())};
-                productsModelTable.addRow(rowData);
-            }
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(rootPane, "Ingresaste un valor erróneo");
-            System.out.println(e.getMessage());
+
+            // Añadir el producto a la lista de productos
+            products.add(product);
+
+            // Formatear los datos del producto para mostrar en la tabla
+            DecimalFormat decimalFormat = new DecimalFormat();
+            Object[] rowData = {
+                    product.getName(),
+                    product.getType(),
+                    decimalFormat.format(product.getTotalUnits()),
+                    decimalFormat.format(product.getUnitaryValue()),
+                    String.format("%.2f%%", product.getIva()*100),
+                    decimalFormat.format(product.getTotalValue())
+            };
+
+            // Añadir la fila del producto a la tabla de productos
+            productsModelTable.addRow(rowData);
+        }catch (IllegalArgumentException e) {
+            // Manejar la excepción si se ingresan valores incorrectos en los campos o si los campos están vacíos
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un valor válido.\n" + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
         }
     }
 

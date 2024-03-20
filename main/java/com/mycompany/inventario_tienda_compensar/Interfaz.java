@@ -176,7 +176,7 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-
+    //Variable global para guardar la interfaz de la interfaz de productos
     ProductsInterface productsInterface = new ProductsInterface();
     /**
      * Maneja el evento de clic en el botón de registrar productos.
