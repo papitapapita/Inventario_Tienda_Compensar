@@ -39,7 +39,6 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
         addEmployeeBtn = new javax.swing.JButton();
         editEmployeeBtn = new javax.swing.JButton();
         deleteEmployeeBtn = new javax.swing.JButton();
-        graphicBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         ageInput = new javax.swing.JSpinner();
@@ -107,13 +106,6 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
             }
         });
 
-        graphicBtn.setText("Graficar");
-        graphicBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                graphicBtnActionPerformed(evt);
-            }
-        });
-
         jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Jornada de Trabajo");
 
@@ -140,8 +132,6 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
                         .addComponent(editEmployeeBtn)
                         .addGap(18, 18, 18)
                         .addComponent(deleteEmployeeBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(graphicBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -205,7 +195,6 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editEmployeeBtn)
-                    .addComponent(graphicBtn)
                     .addComponent(deleteEmployeeBtn))
                 .addGap(22, 22, 22))
         );
@@ -236,10 +225,6 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_deleteEmployeeBtnActionPerformed
 
-    private void graphicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_graphicBtnActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addEmployeeBtn;
@@ -249,7 +234,6 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
     private javax.swing.JButton editEmployeeBtn;
     private javax.swing.JTextField employeeNameInput;
     private javax.swing.JTable employeesTable;
-    private javax.swing.JButton graphicBtn;
     private javax.swing.JTextField idNumberInput;
     private javax.swing.JComboBox<String> idTypeInput;
     private javax.swing.JLabel jLabel1;

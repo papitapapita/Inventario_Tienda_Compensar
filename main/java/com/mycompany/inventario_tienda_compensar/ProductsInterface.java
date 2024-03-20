@@ -48,7 +48,6 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
         addProductBtn = new javax.swing.JButton();
         editProductBtn = new javax.swing.JButton();
         deleteProductBtn = new javax.swing.JButton();
-        graphicBtn = new javax.swing.JButton();
         saveModificationBtn = new javax.swing.JButton();
 
         setClosable(true);
@@ -114,13 +113,6 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
             }
         });
 
-        graphicBtn.setText("Graficar");
-        graphicBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                graphicBtnActionPerformed(evt);
-            }
-        });
-
         saveModificationBtn.setText("Guardar Edición");
         saveModificationBtn.setEnabled(false);
         saveModificationBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -143,8 +135,6 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
                         .addComponent(editProductBtn)
                         .addGap(18, 18, 18)
                         .addComponent(deleteProductBtn)
-                        .addGap(18, 18, 18)
-                        .addComponent(graphicBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
@@ -195,7 +185,6 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(editProductBtn)
-                    .addComponent(graphicBtn)
                     .addComponent(deleteProductBtn))
                 .addGap(32, 32, 32))
         );
@@ -216,6 +205,7 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
 
     private void addProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addProductBtnActionPerformed
         addProduct();
+        clearFields();
     }//GEN-LAST:event_addProductBtnActionPerformed
 
     int selectedModificationRow = 0;
@@ -226,10 +216,6 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
     private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
         deleteProduct();
     }//GEN-LAST:event_deleteProductBtnActionPerformed
-
-    private void graphicBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_graphicBtnActionPerformed
 
     private void saveModificationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveModificationBtnActionPerformed
         saveModification();
@@ -260,6 +246,12 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(rootPane, "Ingresaste un valor erróneo");
             System.out.println(e.getMessage());
         }
+    }
+
+    private void clearFields(){
+        productNameInput.setText("");
+        totalUnitsInput.setValue(0);
+        unitaryValueInput.setText(String.valueOf(0));
     }
 
     private int editProduct(){
@@ -323,7 +315,6 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
     private javax.swing.JButton addProductBtn;
     private javax.swing.JButton deleteProductBtn;
     private javax.swing.JButton editProductBtn;
-    private javax.swing.JButton graphicBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

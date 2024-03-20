@@ -83,7 +83,12 @@ public class Product {
     }
 
     protected double calculateTotalValue(){
-        return unitaryValue * totalUnits;
+        return (unitaryValue * (1+iva)) * totalUnits;
+    }
+
+    @Override
+    public String toString(){
+        return String.format("Nombre: %s\nTipo: %s\nTotal Unidades: %d\nValor Unitario: %.2f\nIVA: %.2f\nValor Total: %.2f",name,type,totalUnits,unitaryValue,iva,totalValue);
     }
 
 }

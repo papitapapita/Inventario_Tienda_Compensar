@@ -6,6 +6,7 @@ package com.mycompany.inventario_tienda_compensar;
 
 import java.awt.*;
 import java.net.URL;
+import java.util.ArrayList;
 
 /**
  *
@@ -50,6 +51,9 @@ public class Interfaz extends javax.swing.JFrame {
         jMenu3 = new javax.swing.JMenu();
         registerProductsBtn = new javax.swing.JMenuItem();
         registerEmployeesBtn = new javax.swing.JMenuItem();
+        jMenu5 = new javax.swing.JMenu();
+        graphicProductsBtn = new javax.swing.JMenuItem();
+        graphicEmployeesBtn = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
         aboutUsBtn = new javax.swing.JMenuItem();
@@ -109,6 +113,28 @@ public class Interfaz extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu3);
 
+        jMenu5.setText("Graficar");
+
+        graphicProductsBtn.setText("Graficar Productos");
+        graphicProductsBtn.setEnabled(false);
+        graphicProductsBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphicProductsBtnActionPerformed(evt);
+            }
+        });
+        jMenu5.add(graphicProductsBtn);
+
+        graphicEmployeesBtn.setText("Graficar Empleados");
+        graphicEmployeesBtn.setEnabled(false);
+        graphicEmployeesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                graphicEmployeesBtnActionPerformed(evt);
+            }
+        });
+        jMenu5.add(graphicEmployeesBtn);
+
+        jMenuBar1.add(jMenu5);
+
         jMenu2.setText("Ayuda");
 
         jMenu4.setText("Sobre Nosotros");
@@ -150,16 +176,28 @@ public class Interfaz extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+
+    ProductsInterface productsInterface = new ProductsInterface();
+    /**
+     * Maneja el evento de clic en el botón de registrar productos.
+     * Agrega la interfaz de productos al panel de escritorio, la muestra y habilita el botón gráfico de productos.
+     * @param evt El evento de acción que desencadenó este método.
+     */
     private void registerProductsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerProductsBtnActionPerformed
-        ProductsInterface productsInterface = new ProductsInterface();
+        // Se agrega la interfaz de productos al panel de escritorio.
         desktopPane.add(productsInterface);
+        // Se muestra la interfaz de productos.
         productsInterface.show();
+        // Se habilita el botón gráfico de productos.
+        graphicProductsBtn.setEnabled(true);
+
     }//GEN-LAST:event_registerProductsBtnActionPerformed
 
+    EmployeesInterface employeesInterface = new EmployeesInterface();
     private void registerEmployeesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerEmployeesBtnActionPerformed
-        EmployeesInterface employeesInterface = new EmployeesInterface();
         desktopPane.add(employeesInterface);
         employeesInterface.show();
+        graphicEmployeesBtn.setEnabled(true);
     }//GEN-LAST:event_registerEmployeesBtnActionPerformed
 
     private void saveProjectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveProjectBtnActionPerformed
@@ -178,6 +216,46 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ucompensarBtnActionPerformed
 
+    private void graphicProductsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicProductsBtnActionPerformed
+        ArrayList<Product> productTemp = productsInterface.products;
+        for(Product p : productTemp)
+            System.out.println(p.toString());
+        int unitsSoldAseo = 0;
+        int unitsSoldViveres = 0;
+        int unitsSoldMascotas = 0;
+        int unitsSoldPapeleria = 0;
+        int unitsSoldOtros = 0;
+        for(Product product : productTemp){
+            switch(product.getType()){
+                case "Aseo":
+                    unitsSoldAseo += product.getTotalUnits();
+                    break;
+                case "Papelería":
+                    unitsSoldPapeleria += product.getTotalUnits();
+                    break;
+                case "Víveres":
+                    unitsSoldViveres += product.getTotalUnits();
+                    break;
+                case "Productos para Mascotas":
+                    unitsSoldMascotas += product.getTotalUnits();
+                    break;
+                case "Otros":
+                    unitsSoldOtros += product.getTotalUnits();
+                    break;
+            }
+        }
+
+
+        ProductGraphicFrame productGraphicFrame = new ProductGraphicFrame(unitsSoldAseo, unitsSoldPapeleria, unitsSoldViveres, unitsSoldMascotas, unitsSoldOtros);
+        desktopPane.add(productGraphicFrame);
+        productGraphicFrame.show();
+        productGraphicFrame.repaint();
+    }//GEN-LAST:event_graphicProductsBtnActionPerformed
+
+    private void graphicEmployeesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicEmployeesBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_graphicEmployeesBtnActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -185,7 +263,7 @@ public class Interfaz extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -217,10 +295,13 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem aboutUsBtn;
     private javax.swing.JMenuItem createProjectBtn;
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenuItem graphicEmployeesBtn;
+    private javax.swing.JMenuItem graphicProductsBtn;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem registerEmployeesBtn;
     private javax.swing.JMenuItem registerProductsBtn;
