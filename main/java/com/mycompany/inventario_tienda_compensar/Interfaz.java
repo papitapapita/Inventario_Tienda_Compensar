@@ -21,16 +21,22 @@ public class Interfaz extends javax.swing.JFrame {
         initComponents();
     }
 
+    /**
+     * Devuelve el icono de la aplicación.
+     * @return El icono de la aplicación como un objeto Image.
+     */
     public Image getIconImage() {
+        // Valor predeterminado para el icono de la aplicación
         Image value = null;
-        URL imageUrl = ClassLoader.getSystemResource("images/logo-ucompensar-2022.jpg");
+
+        // Intenta cargar la imagen del icono desde el recurso del sistema
+        URL imageUrl = getClass().getResource("/images/logo-ucompensar-2022.jpg");
         if (imageUrl != null) {
+            // Si se encuentra la imagen, se carga y se devuelve como un objeto Image
             value = Toolkit.getDefaultToolkit().getImage(imageUrl);
-        } else {
-            // Manejar el caso en que la imagen no se pueda cargar
-            // Por ejemplo, cargar una imagen predeterminada
-            // value = Toolkit.getDefaultToolkit().getImage("ruta/a/imagen/predeterminada.jpg");
         }
+
+        // Devuelve el icono de la aplicación (o null si no se pudo cargar)
         return value;
     }
 

@@ -216,14 +216,28 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_addProductBtnActionPerformed
 
     int selectedModificationRow = 0;
+    /**
+     * Realiza la acción de edición de un producto.
+     * Obtiene la fila seleccionada, carga los datos del producto en los campos de entrada y habilita el botón de guardar modificación.
+     * @param evt El evento de acción que desencadenó este método.
+     */
     private void editProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editProductBtnActionPerformed
         selectedModificationRow = editProduct();
     }//GEN-LAST:event_editProductBtnActionPerformed
 
+    /**
+     * Realiza la acción de eliminación de un producto.
+     * Elimina el producto seleccionado de la lista y de la tabla de productos.
+     * @param evt El evento de acción que desencadenó este método.
+     */
     private void deleteProductBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteProductBtnActionPerformed
         deleteProduct();
     }//GEN-LAST:event_deleteProductBtnActionPerformed
 
+    /**
+     * Realiza la acción de guardar la modificación del producto.
+     * @param evt El evento de acción que desencadenó este método.
+     */
     private void saveModificationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveModificationBtnActionPerformed
         saveModification();
     }//GEN-LAST:event_saveModificationBtnActionPerformed
@@ -276,66 +290,115 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
         }
     }
 
-    private void clearFields(){
+    /**
+     * Limpia los campos de entrada.
+     */
+    private void clearFields() {
+        // Establece el nombre del producto como vacío
         productNameInput.setText("");
+
+        // Establece el valor predeterminado de las unidades como 0
         totalUnitsInput.setValue(0);
-        unitaryValueInput.setText(String.valueOf(0));
+
+        // Establece el valor predeterminado del valor unitario como 0
+        unitaryValueInput.setText("0");
     }
 
+    /**
+     * Edita un producto seleccionado en la tabla de productos.
+     * @return El índice de la fila seleccionada.
+     */
     private int editProduct(){
-        try{
-            int selectedRow = productsTable.getSelectedRow();
-            if(selectedRow > -1){
-                Product tempProduct = products.get(selectedRow);
-                productNameInput.setText(tempProduct.getName());
-                productTypeInput.setSelectedItem(tempProduct.getType());
-                totalUnitsInput.setValue(tempProduct.getTotalUnits());
-                unitaryValueInput.setText(String.valueOf(tempProduct.getUnitaryValue()));
-                saveModificationBtn.setEnabled(true);
-                addProductBtn.setEnabled(false);
-                return selectedRow;
-            }
+        int selectedRow = productsTable.getSelectedRow();
+        if(selectedRow == -1)
+            // No hay fila seleccionada, no se realiza ninguna acción
             return -1;
-        }catch(Exception e){
+        try{
+            // Obtiene el producto seleccionado
+            Product tempProduct = products.get(selectedRow);
+
+            // Carga los datos del producto en los campos de entrada
+            productNameInput.setText(tempProduct.getName());
+            productTypeInput.setSelectedItem(tempProduct.getType());
+            totalUnitsInput.setValue(tempProduct.getTotalUnits());
+            unitaryValueInput.setText(String.valueOf(tempProduct.getUnitaryValue()));
+
+            // Habilita el botón de guardar modificación y deshabilita el botón de agregar producto
+            saveModificationBtn.setEnabled(true);
+            addProductBtn.setEnabled(false);
+
+            return selectedRow;
+        } catch (IndexOutOfBoundsException e) {
+            // Si la fila seleccionada está fuera del rango, no se realiza ninguna acción
             return -1;
         }
-
     }
 
+    /**
+     * Elimina un producto seleccionado de la lista y de la tabla de productos.
+     */
     private void deleteProduct(){
-        try{
-            int selectedRow = productsTable.getSelectedRow();
-            if(selectedRow > -1){
-                products.remove(selectedRow);
-                DefaultTableModel productsModelTable = (DefaultTableModel) productsTable.getModel();
-                productsModelTable.removeRow(selectedRow);
-            }
-        }catch(Exception e){
+        int selectedRow = productsTable.getSelectedRow();
+        if(selectedRow == -1){
+            // No hay fila seleccionada, no se realiza ninguna acción
+            JOptionPane.showMessageDialog(rootPane, "Debes seleccionar una fila");
+            return;
+        }
 
+        try{
+            // Elimina el producto seleccionado de la lista
+            products.remove(selectedRow);
+
+            // Elimina la fila correspondiente de la tabla de productos
+            DefaultTableModel productsModelTable = (DefaultTableModel) productsTable.getModel();
+            productsModelTable.removeRow(selectedRow);
+        }catch(IndexOutOfBoundsException e) {
+            // Si la fila seleccionada está fuera del rango, no se realiza ninguna acción
+            System.out.println(e.getMessage());
         }
     }
 
+    /**
+     * Guarda la modificación del producto y actualiza la tabla de productos.
+     */
     private void saveModification(){
-        Product tempProduct = products.get(selectedModificationRow);
-        tempProduct.setName(productNameInput.getText());
-        tempProduct.setType(productTypeInput.getSelectedItem().toString());
-        tempProduct.setTotalUnits(Integer.parseInt(totalUnitsInput.getValue().toString()));
-        tempProduct.setUnitaryValue(Double.parseDouble(unitaryValueInput.getText()));
-        tempProduct.calculateIva();
-        tempProduct.calculateTotalValue();
-        DecimalFormat decimalFormat = new DecimalFormat();
-        DefaultTableModel productsTableModel = (DefaultTableModel) productsTable.getModel();
-        productsTableModel.setValueAt(tempProduct.getName(), selectedModificationRow, 0);
-        productsTableModel.setValueAt(tempProduct.getType(), selectedModificationRow, 1);
-        productsTableModel.setValueAt(decimalFormat.format(tempProduct.getTotalUnits()), selectedModificationRow, 2);
-        productsTableModel.setValueAt(decimalFormat.format(tempProduct.getUnitaryValue()), selectedModificationRow, 3);
-        productsTableModel.setValueAt(String.format("%.2f%%", tempProduct.getIva()*100), selectedModificationRow, 4);
-        productsTableModel.setValueAt(decimalFormat.format(tempProduct.getTotalValue()), selectedModificationRow, 5);
-        saveModificationBtn.setEnabled(false);
-        addProductBtn.setEnabled(true);
-        productNameInput.setText("");
-        totalUnitsInput.setValue(0);
-        unitaryValueInput.setText(String.valueOf(0));
+        try{
+            // Obtiene el producto que se está modificando
+            Product tempProduct = products.get(selectedModificationRow);
+
+            // Actualiza los datos del producto con los valores de los campos de entrada
+            tempProduct.setName(productNameInput.getText());
+            tempProduct.setType(productTypeInput.getSelectedItem().toString());
+            tempProduct.setTotalUnits(Integer.parseInt(totalUnitsInput.getValue().toString()));
+            tempProduct.setUnitaryValue(Double.parseDouble(unitaryValueInput.getText()));
+            tempProduct.calculateIva();
+            tempProduct.calculateTotalValue();
+
+            // Formatea los valores numéricos
+            DecimalFormat decimalFormat = new DecimalFormat();
+
+            // Actualiza los valores en la tabla de productos
+            DefaultTableModel productsTableModel = (DefaultTableModel) productsTable.getModel();
+            productsTableModel.setValueAt(tempProduct.getName(), selectedModificationRow, 0);
+            productsTableModel.setValueAt(tempProduct.getType(), selectedModificationRow, 1);
+            productsTableModel.setValueAt(decimalFormat.format(tempProduct.getTotalUnits()), selectedModificationRow, 2);
+            productsTableModel.setValueAt(decimalFormat.format(tempProduct.getUnitaryValue()), selectedModificationRow, 3);
+            productsTableModel.setValueAt(String.format("%.2f%%", tempProduct.getIva()*100), selectedModificationRow, 4);
+            productsTableModel.setValueAt(decimalFormat.format(tempProduct.getTotalValue()), selectedModificationRow, 5);
+
+            // Deshabilita el botón de guardar modificación y habilita el botón de agregar producto
+            saveModificationBtn.setEnabled(false);
+            addProductBtn.setEnabled(true);
+
+            // Limpia los campos de entrada
+            clearFields();
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese valores válidos para las unidades y el valor unitario.");
+            System.err.println("Error: " + e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(rootPane, "No se pudo guardar la modificación.");
+            System.err.println("Error: " + e.getMessage());
+        }
     }
 
 
