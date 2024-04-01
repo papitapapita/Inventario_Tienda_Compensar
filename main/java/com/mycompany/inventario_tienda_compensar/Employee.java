@@ -8,13 +8,20 @@ import java.util.HashMap;
  * La clase Employee representa a un empleado en una empresa.
  */
 public class Employee {
-    private String name; // El nombre del empleado.
-    private String id; // El Número de Identificación del empleado.
-    private int age; // La edad del empleado.
-    private String shift; // La jornada del empleado.
-    private int yearsEmployed; // El número de años que el empleado ha trabajado.
-    private Date employedDate; // La fecha en que el empleado fue contratado.
-    private HashMap<String, Double> benefits; // Los beneficios proporcionados al empleado.
+    private String name;                        // El nombre del empleado.
+    private String id;                          // El Número de Identificación del empleado.
+    private int age;                            // La edad del empleado.
+    private String shift;                       // La jornada del empleado.
+    private int yearsEmployed;                  // El número de años que el empleado ha trabajado.
+    private Date employedDate;                  // La fecha en que el empleado fue contratado.
+    private HashMap<String, Double> benefits;   // Los beneficios proporcionados al empleado.
+
+    /**
+     * Constructor por defecto. Crea una instanacia de Employee
+     */
+    public Employee(){
+        System.out.println("An employee has been created");
+    }
 
     /**
      * Construye un objeto Employee con los detalles especificados.
@@ -30,8 +37,8 @@ public class Employee {
         this.age = age;
         this.shift = shift;
         this.employedDate = employedDate;
-        this.yearsEmployed = calculateYearsEmployed();
-        this.benefits = calculateBenefits();
+        calculateYearsEmployed();
+        calculateBenefits();
     }
 
     /**
@@ -134,34 +141,30 @@ public class Employee {
      * Calcula los beneficios basados en el número de años trabajados.
      * @return Los beneficios calculados.
      */
-    private HashMap<String, Double> calculateBenefits(){
-        // Se crea un nuevo mapa para almacenar los beneficios temporales.
-        HashMap<String, Double> tempBenefits = new HashMap<>();
-
+    public void calculateBenefits(){
+        benefits = new HashMap<>();
         // Se verifica la cantidad de años de empleo del empleado.
         if(yearsEmployed < 1){
             // Si el empleado tiene menos de 1 año de empleo, se asignan los beneficios correspondientes.
-            tempBenefits.put("Compras Tienda", .15);
-            tempBenefits.put("Centros Recreacionales", .2);
+            this.benefits.put("Compras Tienda", .15);
+            this.benefits.put("Centros Recreacionales", .2);
         } else if(yearsEmployed > 1 && yearsEmployed < 6){
             // Si el empleado tiene entre 1 y 5 años de empleo, se asignan los beneficios correspondientes.
-            tempBenefits.put("Compras Tienda", .3);
-            tempBenefits.put("Centros Recreacionales", .3);
+            this.benefits.put("Compras Tienda", .3);
+            this.benefits.put("Centros Recreacionales", .3);
         } else {
             // Si el empleado tiene 6 o más años de empleo, se asignan los beneficios correspondientes.
-            tempBenefits.put("Compras Tienda", .5);
-            tempBenefits.put("Centros Recreacionales", .6);
+            this.benefits.put("Compras Tienda", .5);
+            this.benefits.put("Centros Recreacionales", .6);
         }
 
-        // Se devuelve el mapa de beneficios.
-        return tempBenefits;
     }
 
     /**
      * Calcula el número de años que el empleado ha trabajado.
      * @return Los años trabajados.
      */
-    private int calculateYearsEmployed() {
-        return employedDate.getYear() - new Date().getYear();
+    public void calculateYearsEmployed() {
+        this.yearsEmployed = (new Date().getYear() - employedDate.getYear());
     }
 }

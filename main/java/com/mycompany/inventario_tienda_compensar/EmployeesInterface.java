@@ -4,17 +4,48 @@
  */
 package com.mycompany.inventario_tienda_compensar;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import java.awt.*;
+import java.net.URL;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 /**
  *
  * @author manyd
  */
 public class EmployeesInterface extends javax.swing.JInternalFrame {
 
+    // Los empleados que se van agregando gradualmente
+    public ArrayList<Employee> employees = new ArrayList<>();
+    final String[] benefits = {"Compras Tienda","Centros Recreacionales"};
     /**
      * Creates new form EmployeesInterface
      */
     public EmployeesInterface() {
         initComponents();
+    }
+
+    /**
+     * Devuelve el icono de la aplicación.
+     * @return El icono de la aplicación como un objeto Image.
+     */
+    public Image getIconImage() {
+        // Valor predeterminado para el icono de la aplicación
+        Image value = null;
+
+        // Intenta cargar la imagen del icono desde el recurso del sistema
+        URL imageUrl = getClass().getResource("/images/logo-ucompensar-2022.jpg");
+        if (imageUrl != null) {
+            // Si se encuentra la imagen, se carga y se devuelve como un objeto Image
+            value = Toolkit.getDefaultToolkit().getImage(imageUrl);
+        }
+
+        // Devuelve el icono de la aplicación (o null si no se pudo cargar)
+        return value;
     }
 
     /**
@@ -30,11 +61,9 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         employeesTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         employeeNameInput = new javax.swing.JTextField();
-        idTypeInput = new javax.swing.JComboBox<>();
         idNumberInput = new javax.swing.JTextField();
         addEmployeeBtn = new javax.swing.JButton();
         editEmployeeBtn = new javax.swing.JButton();
@@ -44,8 +73,8 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
         ageInput = new javax.swing.JSpinner();
         shiftInput = new javax.swing.JComboBox<>();
         dateEmployedInput = new javax.swing.JSpinner();
+        saveModificationBtn = new javax.swing.JButton();
 
-        setClosable(true);
         setIconifiable(true);
         setResizable(true);
         setTitle("Registro Empleados");
@@ -58,11 +87,11 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "Nombre", "N° Identificación", "Unidades", "Edad", "Jornada", "Años Antigüedad", "Descuento en Compras Tienda Compensar", "Descuento Centros Recreacionales"
+                "Nombre", "N° Identificación", "Edad", "Jornada", "Años Antigüedad", "Descuento en Compras Tienda Compensar", "Descuento Centros Recreacionales"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -74,16 +103,11 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
         jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("Nombre Empleado");
 
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel2.setText("Tipo Identificación");
-
         jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("N° Identificación");
 
         jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Edad");
-
-        idTypeInput.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Cédula de Ciudadanía", "Tarjeta de Identidad", "Pasaporte" }));
 
         addEmployeeBtn.setText("Agregar Empleado");
         addEmployeeBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -118,6 +142,14 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
 
         dateEmployedInput.setModel(new javax.swing.SpinnerDateModel(new java.util.Date(1704085200000L), null, null, java.util.Calendar.MONTH));
 
+        saveModificationBtn.setText("Guardar Edición");
+        saveModificationBtn.setEnabled(false);
+        saveModificationBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveModificationBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -134,14 +166,14 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
                         .addComponent(deleteEmployeeBtn)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addGap(0, 281, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addComponent(addEmployeeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel1)
-                                    .addComponent(jLabel2)
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
@@ -150,16 +182,13 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
                                 .addComponent(jLabel6)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(dateEmployedInput)
+                            .addComponent(dateEmployedInput, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
                             .addComponent(employeeNameInput, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(idTypeInput, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(idNumberInput, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(ageInput, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(shiftInput, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(257, 257, 257))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(addEmployeeBtn)
-                        .addGap(341, 341, 341))))
+                            .addComponent(shiftInput, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(saveModificationBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(257, 257, 257))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,10 +197,6 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(employeeNameInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(idTypeInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
@@ -188,9 +213,11 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(dateEmployedInput, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6))
-                .addGap(18, 18, 18)
-                .addComponent(addEmployeeBtn)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGap(26, 26, 26)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addEmployeeBtn)
+                    .addComponent(saveModificationBtn))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -213,18 +240,208 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Maneja el evento de clic en el botón para agregar un empleado.
+     * Realiza las siguientes acciones:
+     * 1. Agrega un nuevo empleado.
+     * 2. Limpia los campos de entrada.
+     * @param evt El evento de acción que desencadenó este método.
+     */
     private void addEmployeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmployeeBtnActionPerformed
-        // TODO add your handling code here:
+        addEmployee();
+        clearFields();
     }//GEN-LAST:event_addEmployeeBtnActionPerformed
 
+    private int selectedModificationRow = 0;
+    /**
+     * Realiza la acción de edición de un empleado.
+     * Obtiene la fila seleccionada, carga los datos del empleado en los campos de entrada y habilita el botón de guardar modificación.
+     * @param evt El evento de acción que desencadenó este método.
+     */
     private void editEmployeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editEmployeeBtnActionPerformed
-        // TODO add your handling code here:
+        selectedModificationRow = editEmployee();
     }//GEN-LAST:event_editEmployeeBtnActionPerformed
 
+    /**
+     * Realiza la acción de eliminación de un empleado.
+     * Elimina el empleado seleccionado de la lista y de la tabla de empleados.
+     * @param evt El evento de acción que desencadenó este método.
+     */
     private void deleteEmployeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEmployeeBtnActionPerformed
-        // TODO add your handling code here:
+        deleteEmployee();
     }//GEN-LAST:event_deleteEmployeeBtnActionPerformed
 
+    /**
+     * Realiza la acción de guardar la modificación del empleado.
+     * @param evt El evento de acción que desencadenó este método.
+     */
+    private void saveModificationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveModificationBtnActionPerformed
+        saveModification();
+    }//GEN-LAST:event_saveModificationBtnActionPerformed
+
+    /**
+     * Agrega un nuevo empleado a la lista de empleados y actualiza la tabla de empleados
+     */
+    private void addEmployee(){
+        try{
+            // Obtener el modelo de tabla de empleados
+            DefaultTableModel employeesModelTable = (DefaultTableModel) employeesTable.getModel();
+
+            Date dateToCompare = new Date();
+
+            // Obtener los datos del nuevo empleado de los campos de entrada
+            String name = employeeNameInput.getText();
+            String id = String.valueOf(Integer.parseInt(idNumberInput.getText()));
+            int age = (int) ageInput.getValue();
+            String shift = shiftInput.getSelectedItem().toString();
+            Date employedDate = (Date) dateEmployedInput.getValue();
+
+
+            // Validar si los campos están vacíos o si los valores son menores o iguales a cero
+            if(name.isEmpty())
+                throw new IllegalArgumentException("El nombre del empleado es obligatorio");
+            else if(id.isEmpty())
+                throw new IllegalArgumentException("El número de identificación es obligatorio");
+            else if (age <= 0)
+                throw new IllegalArgumentException("Las unidades y el valor unitario deben ser mayores a cero");
+            else if(dateToCompare.compareTo(employedDate) < 0)
+                throw new IllegalArgumentException("La fecha que ingresaste es mayor a la de hoy");
+            // Crear una instancia del empleado con los datos proporcionados
+            Employee employee = new Employee(name, id, age, shift, employedDate);
+
+            // Añadir al empleado a la lista de empleados
+            employees.add(employee);
+
+            // Formatear los datos del empleado para mostrar en la tabla
+            Object[] rowData = {
+                    employee.getName(),
+                    employee.getId(),
+                    employee.getAge(),
+                    employee.getShift(),
+                    employee.getYearsEmployed(),
+                    String.format("%.0f%%", employee.getBenefits().get(benefits[0])*100),
+                    String.format("%.0f%%", employee.getBenefits().get(benefits[1])*100),
+            };
+
+            // Añadir la fila del empleado a la tabla de empleados
+            employeesModelTable.addRow(rowData);
+        }catch (IllegalArgumentException e) {
+            // Manejar la excepción si se ingresan valores incorrectos en los campos o si los campos están vacíos
+            JOptionPane.showMessageDialog(rootPane, "Ingrese un valor inválido.\n" + e.getMessage());
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Limpia los campos de entrada.
+     */
+    private void clearFields() {
+        // Establece el nombre del empleado como vacío
+        employeeNameInput.setText("");
+
+        // Establece el numero de identificación como cero
+        idNumberInput.setText("");
+
+        // Establece el valor de la edad a cero
+        ageInput.setValue(0);
+    }
+
+    /**
+     * Edita un empleado seleccionado en la tabla de empleados.
+     * @return El índice de la fila seleccionada.
+     */
+    private int editEmployee(){
+        int selectedRow = employeesTable.getSelectedRow();
+        if(selectedRow == -1)
+            // No hay fila seleccionada, no se realiza ninguna acción
+            return -1;
+        try{
+            // Obtiene el empleado seleccionado
+            Employee tempEmployee = employees.get(selectedRow);
+
+            // Carga los datos del empleado en los campos de entrada
+            employeeNameInput.setText(tempEmployee.getName());
+            idNumberInput.setText(tempEmployee.getId());
+            ageInput.setValue(tempEmployee.getAge());
+            shiftInput.setSelectedItem(tempEmployee.getShift());
+            dateEmployedInput.setValue(tempEmployee.getEmployedDate());
+
+            // Habilita el botón de guardar modificación y deshabilita el botón de agregar Employeeo
+            saveModificationBtn.setEnabled(true);
+            addEmployeeBtn.setEnabled(false);
+
+            return selectedRow;
+        } catch (IndexOutOfBoundsException e) {
+            // Si la fila seleccionada está fuera del rango, no se realiza ninguna acción
+            return -1;
+        }
+    }
+
+    /**
+     * Elimina un empleado seleccionado de la lista y de la tabla de empleados.
+     */
+    private void deleteEmployee(){
+        int selectedRow = employeesTable.getSelectedRow();
+        if(selectedRow == -1){
+            // No hay fila seleccionada, no se realiza ninguna acción
+            JOptionPane.showMessageDialog(rootPane, "Debes seleccionar una fila");
+            return;
+        }
+
+        try{
+            // Elimina el empleado seleccionado de la lista
+            employees.remove(selectedRow);
+
+            // Elimina la fila correspondiente de la tabla de empleados
+            DefaultTableModel employeeModelTable = (DefaultTableModel) employeesTable.getModel();
+            employeeModelTable.removeRow(selectedRow);
+        }catch(IndexOutOfBoundsException e) {
+            // Si la fila seleccionada está fuera del rango, no se realiza ninguna acción
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Guarda la modificación del empleado y actualiza la tabla de empleados.
+     */
+    private void saveModification(){
+        try{
+            // Obtiene el empleado que se está modificando
+            Employee tempEmployee = employees.get(selectedModificationRow);
+
+            // Actualiza los datos del empleado con los valores de los campos de entrada
+            tempEmployee.setName(employeeNameInput.getText());
+            tempEmployee.setId(idNumberInput.getText());
+            tempEmployee.setAge((int) ageInput.getValue());
+            tempEmployee.setShift(shiftInput.getSelectedItem().toString());
+            tempEmployee.setEmployedDate((Date) dateEmployedInput.getValue());
+            tempEmployee.calculateYearsEmployed();
+            tempEmployee.calculateBenefits();
+
+            // Actualiza los valores en la tabla de empleados
+            DefaultTableModel employeesTableModel = (DefaultTableModel) employeesTable.getModel();
+            employeesTableModel.setValueAt(tempEmployee.getName(), selectedModificationRow, 0);
+            employeesTableModel.setValueAt(tempEmployee.getId(), selectedModificationRow, 1);
+            employeesTableModel.setValueAt(tempEmployee.getAge(), selectedModificationRow, 2);
+            employeesTableModel.setValueAt(tempEmployee.getShift(), selectedModificationRow, 3);
+            employeesTableModel.setValueAt(tempEmployee.getYearsEmployed(), selectedModificationRow, 4);
+            employeesTableModel.setValueAt(String.format("%.0f%%",tempEmployee.getBenefits().get(benefits[0])*100), selectedModificationRow, 5);
+            employeesTableModel.setValueAt(String.format("%.0f%%",tempEmployee.getBenefits().get(benefits[1])*100), selectedModificationRow, 6);
+
+            // Deshabilita el botón de guardar modificación y habilita el botón de agregar empleado
+            saveModificationBtn.setEnabled(false);
+            addEmployeeBtn.setEnabled(true);
+
+            // Limpia los campos de entrada
+            clearFields();
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(rootPane, "Ingrese valores válidos.");
+            System.err.println("Error: " + e.getMessage());
+        } catch (IndexOutOfBoundsException e) {
+            JOptionPane.showMessageDialog(rootPane, "No se pudo guardar la modificación.");
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addEmployeeBtn;
@@ -235,15 +452,14 @@ public class EmployeesInterface extends javax.swing.JInternalFrame {
     private javax.swing.JTextField employeeNameInput;
     private javax.swing.JTable employeesTable;
     private javax.swing.JTextField idNumberInput;
-    private javax.swing.JComboBox<String> idTypeInput;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton saveModificationBtn;
     private javax.swing.JComboBox<String> shiftInput;
     // End of variables declaration//GEN-END:variables
 }

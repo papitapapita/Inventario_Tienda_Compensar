@@ -7,6 +7,8 @@ package com.mycompany.inventario_tienda_compensar;
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
+import java.awt.*;
+import java.net.URL;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -17,12 +19,30 @@ import java.util.ArrayList;
 public class ProductsInterface extends javax.swing.JInternalFrame {
 
     // Los productos que se van agregando gradualmente
-    ArrayList<Product> products = new ArrayList<>();
+    public ArrayList<Product> products = new ArrayList<>();
     /**
      * Creates new form productsInterface
      */
     public ProductsInterface() {
         initComponents();
+    }
+    /**
+     * Devuelve el icono de la aplicación.
+     * @return El icono de la aplicación como un objeto Image.
+     */
+    public Image getIconImage() {
+        // Valor predeterminado para el icono de la aplicación
+        Image value = null;
+
+        // Intenta cargar la imagen del icono desde el recurso del sistema
+        URL imageUrl = getClass().getResource("/images/logo-ucompensar-2022.jpg");
+        if (imageUrl != null) {
+            // Si se encuentra la imagen, se carga y se devuelve como un objeto Image
+            value = Toolkit.getDefaultToolkit().getImage(imageUrl);
+        }
+
+        // Devuelve el icono de la aplicación (o null si no se pudo cargar)
+        return value;
     }
 
     /**
@@ -50,7 +70,6 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
         deleteProductBtn = new javax.swing.JButton();
         saveModificationBtn = new javax.swing.JButton();
 
-        setClosable(true);
         setIconifiable(true);
         setResizable(true);
         setTitle("Registro Producto");
@@ -215,7 +234,7 @@ public class ProductsInterface extends javax.swing.JInternalFrame {
         clearFields();
     }//GEN-LAST:event_addProductBtnActionPerformed
 
-    int selectedModificationRow = 0;
+    private int selectedModificationRow = 0;
     /**
      * Realiza la acción de edición de un producto.
      * Obtiene la fila seleccionada, carga los datos del producto en los campos de entrada y habilita el botón de guardar modificación.

@@ -51,8 +51,38 @@ public class ProductGraphicFrame extends javax.swing.JInternalFrame {
         System.out.println(unitsSoldViveres);
         System.out.println(unitsSoldMascotas);
         System.out.println(unitsSoldOtros);
+        System.out.println(aseoGrades);
+        System.out.println(papeleriaGrades);
+        System.out.println(viveresGrades);
+        System.out.println(mascotasGrades);
+        System.out.println(otrosGrades);
+
         g.setColor(Color.ORANGE);
-        g.fillArc(25, 80, 200, 200,0,aseoGrades);
+        g.fillArc(80, 80, 200, 200,0,aseoGrades);
+        g.fillRect(300,120,20,20);
+        g.drawString(String.format("%d Productos de Aseo",unitsSoldAseo),325,135);
+
+
+        g.setColor(Color.BLUE);
+        g.fillArc(80,80,200,200,aseoGrades, papeleriaGrades);
+        g.fillRect(300,150,20,20);
+        g.drawString(String.format("%d Productos de Papelería", unitsSoldPapeleria), 325, 165);
+
+        g.setColor(Color.MAGENTA);
+        g.fillArc(80,80,200,200,papeleriaGrades + aseoGrades, viveresGrades);
+        g.fillRect(300, 180, 20, 20);
+        g.drawString(String.format("%d Productos de Víveres", unitsSoldViveres),325, 195);
+
+        g.setColor(Color.BLACK);
+        g.fillArc(80,80,200,200,viveresGrades + papeleriaGrades + aseoGrades, mascotasGrades);
+        g.fillRect(300,210,20,20);
+        g.drawString(String.format("%d Productos para Mascotas ", unitsSoldMascotas),325,225);
+
+        g.setColor(Color.CYAN);
+        g.fillArc(80,80,200,200,viveresGrades + papeleriaGrades + aseoGrades + mascotasGrades,otrosGrades);
+        g.fillRect(300,240,20,20);
+        g.drawString(String.format("%d Otros Productos ", unitsSoldOtros),325,255);
+
     }
 
     /**
@@ -67,7 +97,7 @@ public class ProductGraphicFrame extends javax.swing.JInternalFrame {
         jPanel1 = new javax.swing.JPanel();
 
         setClosable(true);
-        setMaximizable(true);
+        setIconifiable(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 

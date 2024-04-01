@@ -196,14 +196,23 @@ public class Interfaz extends javax.swing.JFrame {
         productsInterface.show();
         // Se habilita el botón gráfico de productos.
         graphicProductsBtn.setEnabled(true);
-
+        registerProductsBtn.setEnabled(false);
     }//GEN-LAST:event_registerProductsBtnActionPerformed
 
     EmployeesInterface employeesInterface = new EmployeesInterface();
+    /**
+     * Maneja el evento de clic en el botón de registrar empleados.
+     * Agrega la interfaz de empleados al panel de escritorio, la muestra y habilita el botón gráfico de empleados.
+     * @param evt El evento de acción que desencadenó este método.
+     */
     private void registerEmployeesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerEmployeesBtnActionPerformed
+        // Se agrega la interfaz de empleados al panel de escritorio.
         desktopPane.add(employeesInterface);
+        // Se muestra la interfaz de empleados.
         employeesInterface.show();
+        // Se habilita el botón gráfico de empleados.
         graphicEmployeesBtn.setEnabled(true);
+        registerEmployeesBtn.setEnabled(false);
     }//GEN-LAST:event_registerEmployeesBtnActionPerformed
 
     private void saveProjectBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveProjectBtnActionPerformed
@@ -215,11 +224,17 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_createProjectBtnActionPerformed
 
     private void aboutUsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_aboutUsBtnActionPerformed
-        // TODO add your handling code here:
+        AboutUsInterface aboutUsInterface = new AboutUsInterface();
+        desktopPane.add(aboutUsInterface);
+        aboutUsInterface.show();
+        aboutUsBtn.setEnabled(false);
     }//GEN-LAST:event_aboutUsBtnActionPerformed
 
     private void ucompensarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ucompensarBtnActionPerformed
-        // TODO add your handling code here:
+        AboutUCompensar aboutUCompensar = new AboutUCompensar();
+        desktopPane.add(aboutUCompensar);
+        aboutUCompensar.show();
+        aboutUCompensar.setEnabled(false);
     }//GEN-LAST:event_ucompensarBtnActionPerformed
 
     private void graphicProductsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicProductsBtnActionPerformed
@@ -259,7 +274,25 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_graphicProductsBtnActionPerformed
 
     private void graphicEmployeesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_graphicEmployeesBtnActionPerformed
-        // TODO add your handling code here:
+        ArrayList<Employee> employeeTemp = employeesInterface.employees;
+        for(Employee e: employeeTemp)
+            System.out.println(e.toString());
+        int dayShiftEmployees = 0;
+        int nightShiftEmployees = 0;
+        for(Employee e : employeeTemp){
+            switch(e.getShift()){
+                case "Diurna":
+                    dayShiftEmployees++;
+                    break;
+                case "Nocturna":
+                    nightShiftEmployees++;
+                    break;
+            }
+        }
+        EmployeeGraphicFrame employeeGraphicFrame = new EmployeeGraphicFrame(dayShiftEmployees, nightShiftEmployees);
+        desktopPane.add(employeeGraphicFrame);
+        employeeGraphicFrame.show();
+        employeeGraphicFrame.repaint();
     }//GEN-LAST:event_graphicEmployeesBtnActionPerformed
 
     /**
